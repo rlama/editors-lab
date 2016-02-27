@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var myapp = angular.module('starter', ['ionic', 'ngCordova']);
+var myapp = angular.module('starter', ['ionic']);
 
 myapp.run(function ($ionicPlatform) {
 	$ionicPlatform.ready(function () {
@@ -123,8 +123,8 @@ myapp.controller('CalendarController', ['$scope', '$http', '$state',
 		});
 }]);
 
-myapp.controller('ListController', ['$scope', '$http', '$state', 'Camera', '$cordovaCamera',
-    function ($scope, $http, $state, Camera, $cordovaCamera) {
+myapp.controller('ListController', ['$scope', '$http', '$state', 'Camera',
+    function ($scope, $http, $state, Camera) {
 
 		$http.get('js/data.json').success(function (data) {
 			$scope.artists = data.artists;
@@ -156,7 +156,7 @@ myapp.controller('ListController', ['$scope', '$http', '$state', 'Camera', '$cor
 
 		});
 
-		$scope.takePicture = function () {
+		/*$scope.takePicture = function () {
 			var options = {
 				quality: 75,
 				destinationType: Camera.DestinationType.DATA_URL,
@@ -175,7 +175,7 @@ myapp.controller('ListController', ['$scope', '$http', '$state', 'Camera', '$cor
 			}, function (err) {
 				// An error occured. Show a message to the user
 			});
-		}
+		}*/
 
 
 		$scope.imageUrl;

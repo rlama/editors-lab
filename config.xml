@@ -34,21 +34,18 @@
     <preference name="android-installLocation" value="auto" />
 	
 	<!-- PhoneGap plugins for PhoneGap Build to attach to build -->
-	<gap:plugin name="org.apache.cordova.device" source="npm" />
-	<gap:plugin name="org.apache.cordova.inappbrowser" source="npm" />
-	<gap:plugin name="org.apache.cordova.splashscreen" source="npm" />
-	
-	<!--<gap:plugin name="cordova-plugin-camera" spec="1.2.0" source="pgb" />-->
-	<!--<gap:plugin name="org.apache.cordova.camera" source="npm" version="0.3.6" />
-	-->
+	<gap:plugin name="org.apache.cordova.device" source="pgb" />
+	<gap:plugin name="org.apache.cordova.inappbrowser" source="pgb" />
+	<gap:plugin name="org.apache.cordova.splashscreen" source="pgb" />
+	<gap:plugin name="org.apache.cordova.camera" />
 	<gap:plugin name="org.apache.cordova.file" />
 	<gap:plugin name="org.apache.cordova.file-transfer" />
 	<gap:plugin name="org.apache.cordova.media" />
 	<gap:plugin name="org.apache.cordova.network-information" />
 	
-	
-	<plugin spec="apache/cordova-plugin-camera.git'>https://github.com/apache/cordova-plugin-camera.git" source="git" />
-	
+	<feature name="Camera">
+        <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
+    </feature>
 
 	
     <!--<gap:plugin name="org.apache.cordova.battery-status" />
