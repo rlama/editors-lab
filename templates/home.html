@@ -1,0 +1,38 @@
+<ion-header-bar class="bar-positive">
+	<h2 class="title">I R E P O R T</h2>
+
+	<button class="button button-icon ion-navicon" ng-click="data.showReorder = !data.showReorder; data.showDelete = false;">
+	</button>
+
+</ion-header-bar>
+<ion-view hide-nav-bar="true">
+	<br />
+	<ion-content class="splash padding">
+		<div class="branding">
+			<!-- <div class="tagline">Report and send any incidents you face or see </div>-->
+
+			<p>Swiftly report any incidents you face or see </p>
+
+			<img src="img/applogo.png" alt="ireport Logo" class="app_img">
+
+			<a  href="#" class="item item-thumbnail-left">
+
+				<img ng-src="img/Hassum_Harrod_tn.jpg">
+				
+			</a>
+
+			<button  ng-click="getVideo()" class="button button-large button-full button-positive button-rouded-corner icon-left ion-videocamera ">
+				TAKE VIDEO
+			</button>
+
+			<button ng-click="getPhoto()" class="button button-large button-full button-positive button-rouded-corner icon-left ion-camera">
+				TAKE PHOTO
+			</button>
+
+			<a href="#/text" class="button button-large button-full button-positive button-rouded-corner icon-left ion-android-create">
+				JUST TEXT
+			</a>
+
+		</div>
+	</ion-content>
+</ion-view>
