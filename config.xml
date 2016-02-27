@@ -37,7 +37,10 @@
 	<gap:plugin name="org.apache.cordova.device" source="npm" />
 	<gap:plugin name="org.apache.cordova.inappbrowser" source="npm" />
 	<gap:plugin name="org.apache.cordova.splashscreen" source="npm" />
-	<gap:plugin name="org.apache.cordova.camera" source="npm" version="0.3.6" />
+	
+	<gap:plugin name="cordova-plugin-camera" spec="1.2.0" source="pgb" />
+	<!--<gap:plugin name="org.apache.cordova.camera" source="npm" version="0.3.6" />
+	-->
 	<gap:plugin name="org.apache.cordova.file" />
 	<gap:plugin name="org.apache.cordova.file-transfer" />
 	<gap:plugin name="org.apache.cordova.media" />
