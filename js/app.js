@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var myapp = angular.module('starter', ['ionic']);
+var myapp = angular.module('starter', ['ionic', 'ngCordova']);
 
 myapp.run(function ($ionicPlatform) {
 	$ionicPlatform.ready(function () {
@@ -79,22 +79,22 @@ myapp.config(function ($stateProvider, $urlRouterProvider, $compileProvider) {
 			url: '/photo',
 
 			templateUrl: 'templates/photo.html',
-		controller: 'ListController'
+			controller: 'ListController'
 
 		})
-	.state('video', {
+		.state('video', {
 			url: '/video',
 
 			templateUrl: 'templates/video.html',
-		controller: 'ListController'
+			controller: 'ListController'
 
 		})
-	.state('text', {
-		url: '/text',
+		.state('text', {
+			url: '/text',
 
-		templateUrl: 'templates/text.html'
+			templateUrl: 'templates/text.html'
 
-	})
+		})
 
 
 	$urlRouterProvider.otherwise('/');
@@ -155,42 +155,62 @@ myapp.controller('ListController', ['$scope', '$http', '$state', 'Camera',
 			};
 
 		});
-		
-		
-		$scope.imageUrl ;
+
+		$scope.takePicture = function () {
+			var options = {
+				quality: 75,
+				destinationType: Camera.DestinationType.DATA_URL,
+				sourceType: Camera.PictureSourceType.CAMERA,
+				allowEdit: true,
+				encodingType: Camera.EncodingType.JPEG,
+				targetWidth: 300,
+				targetHeight: 300,
+				popoverOptions: CameraPopoverOptions,
+				saveToPhotoAlbum: false
+			};
+
+			$cordovaCamera.getPicture(options).then(function (imageData) {
+				$scope.imageUrl = "data:image/jpeg;base64," + imageData;
+			}, function (err) {
+				// An error occured. Show a message to the user
+			});
+		}
+
+
+		$scope.imageUrl;
 		$scope.getPhoto = function () {
-			
-			Camera.getPicture().then(function(imageURI) {
+
+			Camera.getPicture().then(function (imageURI) {
 
 				//console.log(imageURL);
-				$scope.imageUrl  = imageURI
+				$scope.imageUrl = "data:image/jpeg;base64," + imageURI;
 				$location.path('/photo');
 
-				
+
 			}, function (err) {
-				
-				
+
+
 				//console.log(err)
 			})
 		};
-		
-		$scope.videoUrl ;
+
+		$scope.videoUrl;
 		$scope.getVideo = function () {
 
-			Camera.getVideo().then(function(videoURI) {
+			Camera.getVideo().then(function (videoURI) {
 
 				//console.log(imageURL);
 				$scope.videoUrl = videoURI
 				$location.path('/video');
 
-				
+
 			}, function (err) {
 
 				//console.log(err)
 			})
 		};
-		
-		
+
+
 
 }]);
 
@@ -205,20 +225,24 @@ myapp.factory('Camera', ['$q', function ($q) {
 				q.resolve(result);
 			}, function (err) {
 				q.reject(err);
-			}, options);
+			}, {quality: 50});
 
 			return q.promise;
 		},
 		getVideo: function (options) {
 			var q = $q.defer();
-			 navigator.device.capture.captureVideo(captureSuccess, captureError, {limit: 1});
-			
-			navigator.device.capture.captureVideo(function(result){
+			navigator.device.capture.captureVideo(captureSuccess, captureError, {
+				limit: 1
+			});
+
+			navigator.device.capture.captureVideo(function (result) {
 				q.resolve(result);
-			}, function(err){
+			}, function (err) {
 				q.reject(err);
-			}, {limit: 1});
-			
+			}, {
+				limit: 1
+			});
+
 
 			return q.promise;
 		}
