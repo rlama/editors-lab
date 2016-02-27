@@ -48,9 +48,9 @@
 	<gap:plugin name="org.apache.cordova.network-information" />
 	
 	<feature name="http://api.phonegap.com/1.0/camera"/>
-<!--	<feature name="Camera">
+	<feature name="Camera">
         <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
-    </feature>-->
+    </feature>
 
     <!--<gap:plugin name="org.apache.cordova.battery-status" />
     <gap:plugin name="org.apache.cordova.camera" version="0.3.6"/>
@@ -97,7 +97,9 @@
     <gap:splash gap:platform="ios" height="768" src="www/res/screen/ios/screen-ipad-landscape.png" width="1024" />
     <gap:splash gap:platform="winphone" src="www/res/screen/windows-phone/screen-portrait.jpg" />
     <access origin="*" />
+	
     <plugin name="cordova-plugin-whitelist" version="1" />
+	
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
