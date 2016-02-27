@@ -23,6 +23,12 @@ body {
   margin-top: 20px;
   text-align: center;*/
 }
+.videoPlayer{
+	width:100%;
+}
+.takenPhoto{
+	width:100%;
+}
 
 .button-rounded {
   display: block !important;
