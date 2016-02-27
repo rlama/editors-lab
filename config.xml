@@ -124,6 +124,9 @@
 	<plugin name="org.apache.cordova.battery-status" source="pgb" spec="0.2.12" />
 	<plugin name="org.apache.cordova.camera" source="pgb" spec="0.3.6" />
 	
+	<plugin name="cordova-plugin-camera" spec="1.2.0" source="pgb" />
+	
+	
 	<!--<plugin name="org.apache.cordova.console" source="pgb" spec="n/a" />-->
 	<plugin name="org.apache.cordova.contacts" source="pgb" spec="0.2.16" />
 	<plugin name="org.apache.cordova.device" source="pgb" spec="0.3.0" />
@@ -141,12 +144,12 @@
 	<plugin name="org.apache.cordova.splashscreen" source="pgb" spec="1.0.0" />
 	<plugin name="org.apache.cordova.vibration" source="pgb" spec="0.3.13" />
 
-	<plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
+<!--	<plugin name="Camera" value="org.apache.cordova.CameraLauncher" />
 <feature name="http://api.phonegap.com/1.0/device" />
 <feature name="http://api.phonegap.com/1.0/camera"/>
 <feature name="http://api.phonegap.com/1.0/file"/>
 <feature name="http://api.phonegap.com/1.0/media"/>
-<feature name="http://api.phonegap.com/1.0/network"/> 
+<feature name="http://api.phonegap.com/1.0/network"/> -->
 	
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
