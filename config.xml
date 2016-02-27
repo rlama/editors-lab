@@ -123,6 +123,7 @@
     <plugin name="cordova-plugin-whitelist" spec="1.2.1" />
 	<plugin name="org.apache.cordova.battery-status" source="pgb" spec="0.2.12" />
 	<plugin name="org.apache.cordova.camera" source="pgb" spec="0.3.6" />
+	<plugin name="org.wbt11a.nativecamera" spec="0.1.4" source="pgb" />
 	<!--<plugin name="org.apache.cordova.console" source="pgb" spec="n/a" />-->
 	<plugin name="org.apache.cordova.contacts" source="pgb" spec="0.2.16" />
 	<plugin name="org.apache.cordova.device" source="pgb" spec="0.3.0" />
