@@ -3,7 +3,7 @@
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.phonegap.editorslab”
+        id        = "com.phonegap.editorslab"
         version   = "1.0.0">
 
     <name>Editors Lab 2016</name>
@@ -12,7 +12,7 @@
         Application creator for Editors Lab 2016 Hackathon.
     </description>
 
-    <author href="http://phonegap.com" email=“richardlama@gmail.com">
+    <author href="http://phonegap.com" email="richardlama@gmail.com">
         Fairfax Interactive Team
     </author>
 
