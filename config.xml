@@ -140,6 +140,14 @@
 	<plugin name="org.apache.cordova.splashscreen" source="pgb" spec="1.0.0" />
 	<plugin name="org.apache.cordova.vibration" source="pgb" spec="0.3.13" />
 
+	
+	<feature name="Camera">
+    	<param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
+	</feature>
+	<feature name="Camera">
+		<param name="ios-package" value="CDVCamera" />
+	</feature>
+	
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
