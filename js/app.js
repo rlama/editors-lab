@@ -78,13 +78,15 @@ myapp.config(function ($stateProvider, $urlRouterProvider, $compileProvider) {
 	.state('photo', {
 			url: '/photo',
 
-			templateUrl: 'templates/photo.html'
+			templateUrl: 'templates/photo.html',
+		controller: 'ListController'
 
 		})
 	.state('video', {
 			url: '/video',
 
-			templateUrl: 'templates/video.html'
+			templateUrl: 'templates/video.html',
+		controller: 'ListController'
 
 		})
 	.state('text', {
@@ -158,8 +160,6 @@ myapp.controller('ListController', ['$scope', '$http', '$state', 'Camera',
 		$scope.imageUrl ;
 		$scope.getPhoto = function () {
 			
-			console.log("jdjdjd");
-
 			Camera.getPicture().then(function(imageURI) {
 
 				//console.log(imageURL);
