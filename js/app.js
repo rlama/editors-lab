@@ -123,8 +123,8 @@ myapp.controller('CalendarController', ['$scope', '$http', '$state',
 		});
 }]);
 
-myapp.controller('ListController', ['$scope', '$http', '$state', 'Camera',
-    function ($scope, $http, $state, Camera) {
+myapp.controller('ListController', ['$scope', '$http', '$state', 'Camera', '$cordovaCamera',
+    function ($scope, $http, $state, Camera, $cordovaCamera) {
 
 		$http.get('js/data.json').success(function (data) {
 			$scope.artists = data.artists;
@@ -171,6 +171,7 @@ myapp.controller('ListController', ['$scope', '$http', '$state', 'Camera',
 
 			$cordovaCamera.getPicture(options).then(function (imageData) {
 				$scope.imageUrl = "data:image/jpeg;base64," + imageData;
+				$location.path('/photo');
 			}, function (err) {
 				// An error occured. Show a message to the user
 			});
