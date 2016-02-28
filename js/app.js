@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var myapp = angular.module('starter', ['ionic', 'ngSanitize']);
+var myapp = angular.module('starter', ['ionic', 'ngSanitize', 'ngCordova']);
 
 myapp.run(function ($ionicPlatform) {
 	$ionicPlatform.ready(function () {
@@ -50,8 +50,8 @@ myapp.config(function ($stateProvider, $urlRouterProvider, $compileProvider) {
 
 
 
-myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$location', '$sce',
-    function ($scope, $http, $state, Camera, $location, $sce) {
+myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$location', '$sce', '$cordovaFileTransfer',
+    function ($scope, $http, $state, Camera, $location, $sce, $cordovaFileTransfer) {
 
 		/*$http.get('js/data.json').success(function (data) {
 			$scope.artists = data.artists;
@@ -114,6 +114,26 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 				//console.log(err)
 			})
 		};
+		
+		
+		$scope.upload = function() {
+			var options = {
+				fileKey: "avatar",
+				fileName: "image.png",
+				chunkedMode: false,
+				mimeType: "image/png"
+			};
+			$cordovaFileTransfer.upload("http://192.168.1.4:2222/uploads", "img/ionic.png", options).then(function(result) {
+				console.log("SUCCESS: " + JSON.stringify(result.response));
+			}, function(err) {
+				console.log("ERROR: " + JSON.stringify(err));
+			}, function (progress) {
+				// constant progress updates
+			});
+		}
+ 
+		
+		
 		
 		function captureSuccess(mediaFiles) {
 			var i, len;
