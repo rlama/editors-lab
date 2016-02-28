@@ -123,7 +123,7 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 				chunkedMode: false,
 				mimeType: "image/png"
 			};
-			$cordovaFileTransfer.upload("http://192.168.1.4:2222/uploads", "img/ionic.png", options).then(function(result) {
+			$cordovaFileTransfer.upload("http://lamainteractives.com/uploads", "img/ionic.png", options).then(function(result) {
 				console.log("SUCCESS: " + JSON.stringify(result.response));
 			}, function(err) {
 				console.log("ERROR: " + JSON.stringify(err));
