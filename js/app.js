@@ -104,7 +104,7 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 			Camera.getVideo().then(function (videoURI) {
 
 				//console.log(imageURL);
-				$scope.videoURI  = $sce.trustAsResourceUrl(videoURI);
+				$scope.videoURI  = videoURI[0].fullPath;
 				
 				$location.path('/video');
 
