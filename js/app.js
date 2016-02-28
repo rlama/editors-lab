@@ -115,11 +115,13 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 				//console.log(err)
 			})
 		};
+		
 
+		
 
 		$scope.fileUpload = function (img) {
 			// Destination URL 
-			var url = "http://lamainteractives/uploads/upload.php";
+			var url = "http://lamainteractives/uploads/uploadImages.php";
 
 			//File for Upload
 			var targetPath = "http://lamainteractives/uploads/images/"+img ;//cordova.file.externalRootDirectory + "logo_radni.png";
@@ -145,11 +147,13 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 				// PROGRESS HANDLING GOES HERE
 			});
 		}
+		
+		$scope.fileUpload("img/iconic.png");
 
 		$scope.console = "";
 
 
-		$scope.upload = function (file) {
+		/*$scope.upload = function (file) {
 			var options = {
 				fileKey: "avatar",
 				fileName: "image.png",
@@ -200,7 +204,7 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 				},
 				options);
 		}
-
+*/
 }]);
 
 myapp.factory('Camera', ['$q', function ($q) {
