@@ -11,7 +11,10 @@
 			  <source src="http://player.vimeo.com/external/85569724.sd.mp4?s=43df5df0d733011263687d20a47557e4" type="video/mp4"/>
 		  </video>-->
 		 
-		   <video controls preload="auto" width="340" height="340" onclick="this.play();"><source src="' + videoURI + '" type="video/mp4" /></video>
+		   <video controls preload="auto" width="340" height="340" >
+			   <source ng-src="{{videoURI}}" type="video/mp4" />
+		  </video>
+		  
 			  
       </ion-item>
     </ion-list>
