@@ -180,20 +180,13 @@ myapp.controller('ListController', ['$scope', '$http', '$state', 'Camera', '$loc
     }
 */
 
-		
 		$scope.takePicture = function () {
 
 			Camera.takePicture().then(function (imageURI) {
-
-				//console.log(imageURL);
 				$scope.imageUrl = "data:image/jpeg;base64," + imageURI;
-				
 				$location.path('/photo');
-				
 			}, function (err) {
 
-
-				//console.log(err)
 			})
 		};
 
