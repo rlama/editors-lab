@@ -123,8 +123,8 @@ myapp.controller('CalendarController', ['$scope', '$http', '$state',
 		});
 }]);
 
-myapp.controller('ListController', ['$scope', '$http', '$state', 'Camera',
-    function ($scope, $http, $state, Camera) {
+myapp.controller('ListController', ['$scope', '$http', '$state', 'Camera', '$cordovaCamera',
+    function ($scope, $http, $state, Camera, $cordovaCamera) {
 
 		$http.get('js/data.json').success(function (data) {
 			$scope.artists = data.artists;
