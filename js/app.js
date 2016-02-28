@@ -148,7 +148,7 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 			});
 		}
 		
-		$scope.fileUpload("img/iconic.png");
+		//$scope.fileUpload("img/iconic.png");
 
 		$scope.console = "";
 
