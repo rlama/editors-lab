@@ -39,7 +39,8 @@ myapp.config(function ($stateProvider, $urlRouterProvider, $compileProvider) {
 
 		.state('home', {
 		url: '/',
-		templateUrl: 'templates/home.html'
+		templateUrl: 'templates/home.html',
+		controller: 'ListController'
 
 	})
 
@@ -231,6 +232,8 @@ myapp.factory('Camera', ['$q', function ($q) {
 
 			return q.promise;
 		},
+		
+		
 		getVideo: function (options) {
 			var q = $q.defer();
 			navigator.device.capture.captureVideo(captureSuccess, captureError, {
