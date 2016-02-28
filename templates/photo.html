@@ -7,6 +7,9 @@
     <ion-list class="list-inset">
       <ion-item class="item-text-wrap">
         
+		   <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}">
+		  <img ng-show="imgURI === undefined" ng-src="http://placehold.it/300x300">
+		  
 		<img ng-src="{{imageUrl}}" class="takenPhoto">
       </ion-item>
     </ion-list>

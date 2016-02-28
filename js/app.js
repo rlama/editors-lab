@@ -22,112 +22,38 @@ myapp.run(function ($ionicPlatform) {
 myapp.config(function ($stateProvider, $urlRouterProvider, $compileProvider) {
 	$compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
 	$stateProvider
-	/*.state('tabs', {
-	  url: '/tab',
-	  abstract: true,
-	  templateUrl: 'templates/tabs.html'
-	})*/
-
-	/* .state('tabs.home', {
-	   url: '/home',
-	   views: {
-	     'home-tab' : {
-	       templateUrl: 'templates/home.html'
-	     }
-	   }
-	 })*/
-
+	
 		.state('home', {
 		url: '/',
-		templateUrl: 'templates/home.html',
-		controller: 'ListController'
+		templateUrl: 'templates/home.html'
 
 	})
-
-
-	.state('tabs.list', {
-		url: '/list',
-		views: {
-			'list-tab': {
-				templateUrl: 'templates/list.html',
-				controller: 'ListController'
-			}
-		}
-	})
-
-	.state('tabs.detail', {
-		url: '/list/:aId',
-		views: {
-			'list-tab': {
-				templateUrl: 'templates/detail.html',
-				controller: 'ListController'
-			}
-		}
-	})
-
-	.state('tabs.calendar', {
-		url: '/calendar',
-		views: {
-			'calendar-tab': {
-				templateUrl: 'templates/calendar.html',
-				controller: 'CalendarController'
-			}
-		}
-	})
-
 
 	.state('photo', {
 			url: '/photo',
 
-			templateUrl: 'templates/photo.html',
-			controller: 'ListController'
+			templateUrl: 'templates/photo.html'
 
 		})
 		.state('video', {
 			url: '/video',
 
-			templateUrl: 'templates/video.html',
-			controller: 'ListController'
+			templateUrl: 'templates/video.html'
 
 		})
 		.state('text', {
 			url: '/text',
-
 			templateUrl: 'templates/text.html'
-
 		})
-
-
 	$urlRouterProvider.otherwise('/');
 });
 
-myapp.controller('CalendarController', ['$scope', '$http', '$state',
-    function ($scope, $http, $state) {
-		$http.get('js/data.json').success(function (data) {
-			$scope.calendar = data.calendar;
 
-			$scope.onItemDelete = function (dayIndex, item) {
-				$scope.calendar[dayIndex].schedule.splice($scope.calendar[dayIndex].schedule.indexOf(item), 1);
-			}
 
-			$scope.doRefresh = function () {
-				$http.get('js/data.json').success(function (data) {
-					$scope.calendar = data.calendar;
-					$scope.$broadcast('scroll.refreshComplete');
-				});
-			}
-
-			$scope.toggleStar = function (item) {
-				item.star = !item.star;
-			}
-
-		});
-}]);
-
-myapp.controller('ListController', ['$scope', '$http', '$state', 'Camera', '$location',
+myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$location',
     function ($scope, $http, $state, Camera , $location) {
 
-		$http.get('js/data.json').success(function (data) {
+		/*$http.get('js/data.json').success(function (data) {
 			$scope.artists = data.artists;
 			$scope.whichartist = $state.params.aId;
 			$scope.data = {
@@ -155,33 +81,14 @@ myapp.controller('ListController', ['$scope', '$http', '$state', 'Camera', '$loc
 				$scope.artists.splice(toIndex, 0, item);
 			};
 
-		});
+		});*/
 		
-		$scope.imageUrl;
-
-		/*$scope.takePicture = function() {
-			var options = { 
-				quality : 75, 
-				destinationType : Camera.DestinationType.DATA_URL, 
-				sourceType : Camera.PictureSourceType.CAMERA, 
-				allowEdit : true,
-				encodingType: Camera.EncodingType.JPEG,
-				targetWidth: 300,
-				targetHeight: 300,
-				popoverOptions: CameraPopoverOptions,
-				saveToPhotoAlbum: false
-        };
-
-        $cordovaCamera.getPicture(options).then(function(imageData) {
-            $scope.imageUrl = "data:image/jpeg;base64," + imageData;
-        }, function(err) {
-            // An error occured. Show a message to the user
-        });
-    }
-*/
-
+		
+		$scope.imgURI = "";
+		
 		$scope.takePicture = function () {
 
+		   //$scope.imgURI = "img/Jonathan_Ferrar_tn.jpg";
 			Camera.takePicture().then(function (imageURI) {
 				$scope.imageUrl = "data:image/jpeg;base64," + imageURI;
 				$location.path('/photo');
