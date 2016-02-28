@@ -125,7 +125,7 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 			var url = "http://lamainteractives/uploads/uploadImage.php";
 
 			//File for Upload
-			var targetPath = "img/Jonathan_Ferrar_tn.png";//+img ;//cordova.file.externalRootDirectory + "logo_radni.png";
+			var targetPath = cordova.file.externalRootDirectory+ "Jonathan_Ferrar_tn.png";//+img ;//cordova.file.externalRootDirectory + "logo_radni.png";
 			// File name only
 			var filename = targetPath.split("/").pop();
 
