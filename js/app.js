@@ -136,9 +136,7 @@ myapp.factory('Camera', ['$q', function ($q) {
 		
 		getVideo: function (options) {
 			var q = $q.defer();
-			navigator.device.capture.captureVideo(captureSuccess, captureError, {
-				limit: 1
-			});
+			
 
 			navigator.device.capture.captureVideo(function (result) {
 				q.resolve(result);
