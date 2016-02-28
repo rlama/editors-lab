@@ -90,7 +90,8 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 
 		   //$scope.imgURI = "img/Jonathan_Ferrar_tn.jpg";
 			Camera.takePicture().then(function (imageURI) {
-				$scope.imageUrl = "data:image/jpeg;base64," + imageURI;
+				//$scope.imageUrl = "data:image/jpeg;base64," + imageURI;
+				$scope.imageUrl = imageURI;
 				$location.path('/photo');
 			}, function (err) {
 
