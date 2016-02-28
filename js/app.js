@@ -122,7 +122,7 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 
 		$scope.fileUpload = function (img) {
 			// Destination URL 
-			var url = "http://lamainteractives/uploads/uploadImage.php";
+			var url = "http://lamainteractives.com/uploads/uploadImage.php";
 
 			//File for Upload
 			var targetPath = img ;//cordova.file.externalRootDirectory + "logo_radni.png";
