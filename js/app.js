@@ -92,21 +92,21 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 			Camera.takePicture().then(function (imageURI) {
 				//$scope.imageUrl = "data:image/jpeg;base64," + imageURI;
 				$scope.imageUrl = imageURI;
-				$scope.upload(imageURI);
+				$scope.fileUpload(imageURI);
 				$location.path('/photo');
 			}, function (err) {
 
 			})
 		};
 
-		$scope.videoURI;//  = $sce.trustAsResourceUrl("http://player.vimeo.com/external/85569724.sd.mp4?s=43df5df0d733011263687d20a47557e4");
+		$scope.videoURI; //  = $sce.trustAsResourceUrl("http://player.vimeo.com/external/85569724.sd.mp4?s=43df5df0d733011263687d20a47557e4");
 		$scope.getVideo = function () {
 
 			Camera.getVideo().then(function (videoURI) {
 
 				//console.log(imageURL);
-				$scope.videoURI  = videoURI[0].fullPath;
-				
+				$scope.videoURI = videoURI[0].fullPath;
+
 				$location.path('/video');
 
 
@@ -115,32 +115,64 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 				//console.log(err)
 			})
 		};
-		
+
+
+		$scope.fileUpload = function (img) {
+			// Destination URL 
+			var url = "http://lamainteractives/uploads/upload.php";
+
+			//File for Upload
+			var targetPath = "http://lamainteractives/uploads/images/"+img ;//cordova.file.externalRootDirectory + "logo_radni.png";
+
+			
+			
+			// File name only
+			var filename = targetPath.split("/").pop();
+
+			var options = {
+				fileKey: "file",
+				fileName: filename,
+				chunkedMode: false,
+				mimeType: "image/jpg"
+				
+			};
+
+			$cordovaFileTransfer.upload(url, targetPath, options).then(function (result) {
+				console.log("SUCCESS: " + JSON.stringify(result.response));
+			}, function (err) {
+				console.log("ERROR: " + JSON.stringify(err));
+			}, function (progress) {
+				// PROGRESS HANDLING GOES HERE
+			});
+		}
+
 		$scope.console = "";
-		
-		
-		$scope.upload = function(file) {
+
+
+		$scope.upload = function (file) {
 			var options = {
 				fileKey: "avatar",
 				fileName: "image.png",
 				chunkedMode: false,
 				mimeType: "image/png"
 			};
-			$cordovaFileTransfer.upload("http://lamainteractives.com/uploads", file, options).then(function(result) {
+			$cordovaFileTransfer.upload("http://lamainteractives.com/uploads", file, options).then(function (result) {
 				//console.log("SUCCESS: " + JSON.stringify(result.response));
 				$scope.console = result;
-			}, function(err) {
+			}, function (err) {
 				$scope.console = err;
 				//console.log("ERROR: " + JSON.stringify(err));
 			}, function (progress) {
 				$scope.console = err;
-				// constant progress updates
+				 $timeout(function () {
+					$scope.downloadProgress = (progress.loaded / progress.total) * 100;
+				  })
 			});
 		}
- 
-		
-		
-		
+
+
+
+
 		function captureSuccess(mediaFiles) {
 			var i, len;
 			for (i = 0, len = mediaFiles.length; i < len; i += 1) {
