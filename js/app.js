@@ -124,8 +124,8 @@ myapp.controller('CalendarController', ['$scope', '$http', '$state',
 		});
 }]);
 
-myapp.controller('ListController', ['$scope', '$http', '$state', 'Camera', 
-    function ($scope, $http, $state, Camera) {
+myapp.controller('ListController', ['$scope', '$http', '$state', 'Camera', '$location',
+    function ($scope, $http, $state, Camera , $location) {
 
 		$http.get('js/data.json').success(function (data) {
 			$scope.artists = data.artists;
@@ -185,12 +185,11 @@ myapp.controller('ListController', ['$scope', '$http', '$state', 'Camera',
 
 			Camera.takePicture().then(function (imageURI) {
 
-				$location.path('/photo');
 				//console.log(imageURL);
 				$scope.imageUrl = "data:image/jpeg;base64," + imageURI;
 				
-
-
+				$location.path('/photo');
+				
 			}, function (err) {
 
 
