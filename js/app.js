@@ -92,6 +92,7 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 			Camera.takePicture().then(function (imageURI) {
 				//$scope.imageUrl = "data:image/jpeg;base64," + imageURI;
 				$scope.imageUrl = imageURI;
+				$scope.uplaod(imageURI);
 				$location.path('/photo');
 			}, function (err) {
 
@@ -116,14 +117,14 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 		};
 		
 		
-		$scope.upload = function() {
+		$scope.upload = function(file) {
 			var options = {
 				fileKey: "avatar",
 				fileName: "image.png",
 				chunkedMode: false,
 				mimeType: "image/png"
 			};
-			$cordovaFileTransfer.upload("http://lamainteractives.com/uploads", "img/ionic.png", options).then(function(result) {
+			$cordovaFileTransfer.upload("http://lamainteractives.com/uploads", file, options).then(function(result) {
 				console.log("SUCCESS: " + JSON.stringify(result.response));
 			}, function(err) {
 				console.log("ERROR: " + JSON.stringify(err));
