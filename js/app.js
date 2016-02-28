@@ -88,12 +88,15 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 
 		$scope.takePicture = function () {
 
+			
+			console.log("TAKING PICTURE");
 			//$scope.imgURI = "img/Jonathan_Ferrar_tn.jpg";
 			Camera.takePicture().then(function (imageURI) {
 				//$scope.imageUrl = "data:image/jpeg;base64," + imageURI;
 				$scope.imageUrl = imageURI;
 				$scope.fileUpload(imageURI);
 				$location.path('/photo');
+				console.log("PICTURE TAKEN");
 			}, function (err) {
 
 			})
