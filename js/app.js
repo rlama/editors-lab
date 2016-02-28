@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var myapp = angular.module('starter', ['ionic']);
+var myapp = angular.module('starter', ['ionic', 'ngSanitize']);
 
 myapp.run(function ($ionicPlatform) {
 	$ionicPlatform.ready(function () {
@@ -22,7 +22,7 @@ myapp.run(function ($ionicPlatform) {
 myapp.config(function ($stateProvider, $urlRouterProvider, $compileProvider) {
 	$compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
 	$stateProvider
-	
+
 		.state('home', {
 		url: '/',
 		templateUrl: 'templates/home.html'
@@ -50,8 +50,8 @@ myapp.config(function ($stateProvider, $urlRouterProvider, $compileProvider) {
 
 
 
-myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$location',
-    function ($scope, $http, $state, Camera , $location) {
+myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$location', '$sce',
+    function ($scope, $http, $state, Camera, $location, $sce) {
 
 		/*$http.get('js/data.json').success(function (data) {
 			$scope.artists = data.artists;
@@ -82,13 +82,13 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 			};
 
 		});*/
-		
-		
+
+
 		$scope.imgURI = "";
-		
+
 		$scope.takePicture = function () {
 
-		   //$scope.imgURI = "img/Jonathan_Ferrar_tn.jpg";
+			//$scope.imgURI = "img/Jonathan_Ferrar_tn.jpg";
 			Camera.takePicture().then(function (imageURI) {
 				//$scope.imageUrl = "data:image/jpeg;base64," + imageURI;
 				$scope.imageUrl = imageURI;
@@ -98,13 +98,13 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 			})
 		};
 
-		$scope.videoUrl;
+		$scope.videoURI;//  = $sce.trustAsResourceUrl("http://player.vimeo.com/external/85569724.sd.mp4?s=43df5df0d733011263687d20a47557e4");
 		$scope.getVideo = function () {
 
 			Camera.getVideo().then(function (videoURI) {
 
 				//console.log(imageURL);
-				$scope.videoURI = videoURI
+				$scope.videoURI  = $sce.trustAsResourceUrl(videoURI);
 				$location.path('/video');
 
 
@@ -113,6 +113,34 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 				//console.log(err)
 			})
 		};
+		
+		function captureSuccess(mediaFiles) {
+			var i, len;
+			for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+				uploadFile(mediaFiles[i]);
+			}
+		}
+
+		function uploadFile(mediaFile) {
+			var ft = new FileTransfer(),
+				path = mediaFile.fullPath,
+				name = mediaFile.name;
+			var options = new FileUploadOptions();
+			options.mimeType = "video/mpeg";
+			options.fileName = name;
+			options.chunkedMode = true;
+
+			ft.upload(path,
+				"http://192.154.23.51/upload.php",
+				function (result) {
+					console.log('Upload success: ' + result.responseCode);
+					console.log(result.bytesSent + ' bytes sent');
+				},
+				function (error) {
+					console.log('Error uploading file ' + path + ': ' + error.code);
+				},
+				options);
+		}
 
 }]);
 
@@ -124,19 +152,21 @@ myapp.factory('Camera', ['$q', function ($q) {
 
 			navigator.camera.getPicture(function (result) {
 				// Do any magic you need
-					q.resolve(result);
-				}, function (err) {
-					q.reject(err);
-				}, {quality: 50, destinationType: Camera.DestinationType.FILE_URI}
-			);
+				q.resolve(result);
+			}, function (err) {
+				q.reject(err);
+			}, {
+				quality: 50,
+				destinationType: Camera.DestinationType.FILE_URI
+			});
 
 			return q.promise;
 		},
-		
-		
+
+
 		getVideo: function (options) {
 			var q = $q.defer();
-			
+
 
 			navigator.device.capture.captureVideo(function (result) {
 				q.resolve(result);
