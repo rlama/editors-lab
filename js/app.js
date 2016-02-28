@@ -116,6 +116,8 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 			})
 		};
 		
+		$scope.console = "";
+		
 		
 		$scope.upload = function(file) {
 			var options = {
@@ -125,10 +127,13 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 				mimeType: "image/png"
 			};
 			$cordovaFileTransfer.upload("http://lamainteractives.com/uploads", file, options).then(function(result) {
-				console.log("SUCCESS: " + JSON.stringify(result.response));
+				//console.log("SUCCESS: " + JSON.stringify(result.response));
+				$scope.console = result;
 			}, function(err) {
-				console.log("ERROR: " + JSON.stringify(err));
+				$scope.console = err;
+				//console.log("ERROR: " + JSON.stringify(err));
 			}, function (progress) {
+				$scope.console = err;
 				// constant progress updates
 			});
 		}
