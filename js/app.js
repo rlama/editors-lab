@@ -115,19 +115,14 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 				//console.log(err)
 			})
 		};
-		
 
-		
 
 		$scope.fileUpload = function (img) {
 			// Destination URL 
-			var url = "http://lamainteractives/uploads/uploadImages.php";
+			var url = "http://lamainteractives/uploads/uploadImage.php";
 
 			//File for Upload
-			var targetPath = "http://lamainteractives/uploads/images/"+img ;//cordova.file.externalRootDirectory + "logo_radni.png";
-
-			
-			
+			var targetPath = "img/Jonathan_Ferrar_tn.png";//+img ;//cordova.file.externalRootDirectory + "logo_radni.png";
 			// File name only
 			var filename = targetPath.split("/").pop();
 
