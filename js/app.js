@@ -83,18 +83,18 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 
 		});*/
 
-
 		$scope.imgURI = "";
+
+		$scope.videoURI;
 
 		$scope.takePicture = function () {
 
-			
 			console.log("TAKING PICTURE");
 			//$scope.imgURI = "img/Jonathan_Ferrar_tn.jpg";
 			Camera.takePicture().then(function (imageURI) {
 				//$scope.imageUrl = "data:image/jpeg;base64," + imageURI;
 				$scope.imageUrl = imageURI;
-				$scope.fileUpload(imageURI);
+				$scope.imageUpload(imageURI);
 				$location.path('/photo');
 				console.log("PICTURE TAKEN");
 			}, function (err) {
@@ -102,41 +102,27 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 			})
 		};
 
-		$scope.videoURI; //  = $sce.trustAsResourceUrl("http://player.vimeo.com/external/85569724.sd.mp4?s=43df5df0d733011263687d20a47557e4");
-		$scope.getVideo = function () {
-
+		 //  = $sce.trustAsResourceUrl("http://player.vimeo.com/external/85569724.sd.mp4?s=43df5df0d733011263687d20a47557e4");
+		$scope.takeVideo = function () {
 			Camera.getVideo().then(function (videoURI) {
-
-				//console.log(imageURL);
 				$scope.videoURI = videoURI[0].fullPath;
-
+				$scope.videoUpload($scope.videoURI);
 				$location.path('/video');
-
-
 			}, function (err) {
-
 				//console.log(err)
 			})
 		};
 
-
-		$scope.fileUpload = function (img) {
-			// Destination URL 
-			var url = "http://lamainteractives.com/uploads/uploadImage.php";
-
-			//File for Upload
+		$scope.imageUpload = function (img) {
+			var url = "http://lamainteractives.com/editorslab/uploadImage.php";
 			var targetPath = img ;//cordova.file.externalRootDirectory + "logo_radni.png";
-			// File name only
 			var filename = targetPath.split("/").pop();
-
 			var options = {
 				fileKey: "file",
 				fileName: filename,
 				chunkedMode: false,
 				mimeType: "image/jpg"
-				
 			};
-
 			$cordovaFileTransfer.upload(url, targetPath, options).then(function (result) {
 				console.log("SUCCESS: " + JSON.stringify(result.response));
 			}, function (err) {
@@ -146,7 +132,24 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 			});
 		}
 		
-		//$scope.fileUpload("img/iconic.png");
+		$scope.videoUpload = function (vid) {
+			var url = "http://lamainteractives.com/editorslab/uploadVideo.php";
+			var targetPath = vid ;//cordova.file.externalRootDirectory + "logo_radni.png";
+			var filename = targetPath.split("/").pop();
+			var options = {
+				fileKey: "file",
+				fileName: filename,
+				chunkedMode: false,
+				mimeType: "video/mpeg"
+			};
+			$cordovaFileTransfer.upload(url, targetPath, options).then(function (result) {
+				console.log("SUCCESS: " + JSON.stringify(result.response));
+			}, function (err) {
+				console.log("ERROR: " + JSON.stringify(err));
+			}, function (progress) {
+				// PROGRESS HANDLING GOES HERE
+			});
+		}
 
 		$scope.console = "";
 
@@ -170,7 +173,7 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 					$scope.downloadProgress = (progress.loaded / progress.total) * 100;
 				  })
 			});
-		}
+		}*/
 
 
 
@@ -202,7 +205,7 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 				},
 				options);
 		}
-*/
+
 }]);
 
 myapp.factory('Camera', ['$q', function ($q) {
