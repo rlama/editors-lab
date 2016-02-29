@@ -98,13 +98,12 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 				$location.path('/photo');
 				console.log("PICTURE TAKEN");
 			}, function (err) {
-
 			})
 		};
 
 		 //  = $sce.trustAsResourceUrl("http://player.vimeo.com/external/85569724.sd.mp4?s=43df5df0d733011263687d20a47557e4");
 		$scope.takeVideo = function () {
-			Camera.getVideo().then(function (videoURI) {
+			Camera.takeVideo().then(function (videoURI) {
 				$scope.videoURI = videoURI[0].fullPath;
 				$scope.videoUpload($scope.videoURI);
 				$location.path('/video');
@@ -152,32 +151,8 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 		}
 
 		$scope.console = "";
-
-
-		/*$scope.upload = function (file) {
-			var options = {
-				fileKey: "avatar",
-				fileName: "image.png",
-				chunkedMode: false,
-				mimeType: "image/png"
-			};
-			$cordovaFileTransfer.upload("http://lamainteractives.com/uploads", file, options).then(function (result) {
-				//console.log("SUCCESS: " + JSON.stringify(result.response));
-				$scope.console = result;
-			}, function (err) {
-				$scope.console = err;
-				//console.log("ERROR: " + JSON.stringify(err));
-			}, function (progress) {
-				$scope.console = err;
-				 $timeout(function () {
-					$scope.downloadProgress = (progress.loaded / progress.total) * 100;
-				  })
-			});
-		}*/
-
-
-
-
+		
+/*
 		function captureSuccess(mediaFiles) {
 			var i, len;
 			for (i = 0, len = mediaFiles.length; i < len; i += 1) {
@@ -204,7 +179,7 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 					console.log('Error uploading file ' + path + ': ' + error.code);
 				},
 				options);
-		}
+		}*/
 
 }]);
 
@@ -228,15 +203,15 @@ myapp.factory('Camera', ['$q', function ($q) {
 		},
 
 
-		getVideo: function (options) {
+		takeVideo: function (options) {
 			var q = $q.defer();
-
 
 			navigator.device.capture.captureVideo(function (result) {
 				q.resolve(result);
 			}, function (err) {
 				q.reject(err);
 			}, {
+				quality:50 ,
 				limit: 1
 			});
 
