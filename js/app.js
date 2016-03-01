@@ -1,5 +1,4 @@
 // Ionic Starter App
-
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
@@ -18,28 +17,20 @@ myapp.run(function ($ionicPlatform) {
 	});
 });
 
-
 myapp.config(function ($stateProvider, $urlRouterProvider, $compileProvider) {
 	$compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
 	$stateProvider
-
 		.state('home', {
 		url: '/',
 		templateUrl: 'templates/home.html'
-
 	})
-
 	.state('photo', {
 			url: '/photo',
-
 			templateUrl: 'templates/photo.html'
-
 		})
 		.state('video', {
 			url: '/video',
-
 			templateUrl: 'templates/video.html'
-
 		})
 		.state('text', {
 			url: '/text',
@@ -48,11 +39,8 @@ myapp.config(function ($stateProvider, $urlRouterProvider, $compileProvider) {
 	$urlRouterProvider.otherwise('/');
 });
 
-
-
-myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$location', '$sce', '$cordovaFileTransfer',
-    function ($scope, $http, $state, Camera, $location, $sce, $cordovaFileTransfer) {
-
+myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$location', '$sce', '$cordovaFileTransfer', 'dataService',
+    function ($scope, $http, $state, Camera, $location, $sce, $cordovaFileTransfer, dataService) {
 		/*$http.get('js/data.json').success(function (data) {
 			$scope.artists = data.artists;
 			$scope.whichartist = $state.params.aId;
@@ -82,13 +70,22 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 			};
 
 		});*/
-
 		$scope.imgURI = "";
-
 		$scope.videoURI;
+		
+		
+		function getData(){
+			dataService.getJsonData().then(function(data){
+			   $scope.data = data;
+				
+				console.log(data)
 
+			});
+		}
+		getData();
+		
+		
 		$scope.takePicture = function () {
-
 			console.log("TAKING PICTURE");
 			//$scope.imgURI = "img/Jonathan_Ferrar_tn.jpg";
 			Camera.takePicture().then(function (imageURI) {
@@ -100,7 +97,6 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 			}, function (err) {
 			})
 		};
-
 		 //  = $sce.trustAsResourceUrl("http://player.vimeo.com/external/85569724.sd.mp4?s=43df5df0d733011263687d20a47557e4");
 		$scope.takeVideo = function () {
 			Camera.takeVideo().then(function (videoURI) {
@@ -149,7 +145,6 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 				// PROGRESS HANDLING GOES HERE
 			});
 		}
-
 		$scope.console = "";
 		
 /*
@@ -184,11 +179,9 @@ myapp.controller('MainController', ['$scope', '$http', '$state', 'Camera', '$loc
 }]);
 
 myapp.factory('Camera', ['$q', function ($q) {
-
 	return {
 		takePicture: function (options) {
 			var q = $q.defer();
-
 			navigator.camera.getPicture(function (result) {
 				// Do any magic you need
 				q.resolve(result);
@@ -198,14 +191,12 @@ myapp.factory('Camera', ['$q', function ($q) {
 				quality: 50,
 				destinationType: Camera.DestinationType.FILE_URI
 			});
-
 			return q.promise;
 		},
 
 
 		takeVideo: function (options) {
 			var q = $q.defer();
-
 			navigator.device.capture.captureVideo(function (result) {
 				q.resolve(result);
 			}, function (err) {
@@ -215,8 +206,64 @@ myapp.factory('Camera', ['$q', function ($q) {
 				limit: 1
 			});
 
-
 			return q.promise;
 		}
 	}
 }]);
+
+
+myapp.factory('dataService', function($http, $q){
+	return{
+		
+		postData: function(Formdata){
+		
+			var _method = 'POST';
+			var _url = 'server/makejson.php';
+			var fData = Formdata;
+	
+			var deferred = $q.defer();
+			
+			$http({
+			
+				method:_method,
+				url: _url,
+				data: fData,
+				contentType: 'application/json'
+				//headers: {'Content-Type':'application/x-www-form-urlencoded'},
+				
+			}).
+			success (function(response){
+			//console.log(response);
+				//console.log("success "+response.data);
+				deferred.resolve(response);
+			}).
+			error(function(response){
+			console.log(response);
+				//console.log(response);
+			
+			});
+			
+			return deferred.promise;
+		},
+		
+		getJsonData: function () {
+			var deferred = $q.defer();
+			$http({
+					method: 'GET',
+					url: 'http://bluehost.fairfaxmedia.com.au/cliquephoto/votes/labdata/vigil_data.json?nocache=' + (new Date()).getTime(),
+				})
+				.success(function (data) {
+
+					/*data.sort(function(a,b){
+					  return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+					 });*/
+
+					deferred.resolve(data);
+				})
+				.error(function (data) {
+					alert("error occured");
+				})
+			return deferred.promise;
+		}
+	}
+});
